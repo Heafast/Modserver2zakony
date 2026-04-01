@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pravidlá servera</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card: #111827;
+      --card-2: #1e293b;
+      --text: #f8fafc;
+      --muted: #cbd5e1;
+      --accent: #f59e0b;
+      --accent-2: #38bdf8;
+      --border: rgba(255,255,255,0.08);
+      --shadow: 0 10px 30px rgba(0,0,0,0.35);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(56,189,248,0.12), transparent 25%),
+        radial-gradient(circle at top right, rgba(245,158,11,0.12), transparent 25%),
+        linear-gradient(180deg, #0b1220 0%, var(--bg) 100%);
+      color: var(--text);
+      line-height: 1.65;
+    }
+
+    .container {
+      width: min(1100px, 92%);
+      margin: 0 auto;
+    }
+
+    header {
+      padding: 48px 0 28px;
+      text-align: center;
+    }
+
+    .title {
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      margin: 0 0 10px;
+      font-weight: 800;
+      letter-spacing: 0.3px;
+    }
+
+    .subtitle {
+      color: var(--muted);
+      font-size: 1.05rem;
+      margin: 0 auto;
+      max-width: 760px;
+    }
+
+    .top-nav {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(10px);
+      background: rgba(15, 23, 42, 0.82);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .top-nav-inner {
+      width: min(1100px, 92%);
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      padding: 12px 0;
+      justify-content: center;
+    }
+
+    .top-nav a {
+      text-decoration: none;
+      color: var(--text);
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--border);
+      padding: 10px 14px;
+      border-radius: 999px;
+      font-size: 0.95rem;
+      transition: 0.2s ease;
+    }
+
+    .top-nav a:hover {
+      background: rgba(255,255,255,0.1);
+      transform: translateY(-1px);
+    }
+
+    main {
+      padding: 30px 0 70px;
+    }
+
+    .rules-wrapper {
+      display: grid;
+      gap: 24px;
+    }
+
+    .section-card {
+      background: linear-gradient(180deg, var(--card) 0%, var(--card-2) 100%);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 26px;
+      box-shadow: var(--shadow);
+    }
+
+    .section-card h2 {
+      margin: 0 0 18px;
+      font-size: 1.55rem;
+      color: var(--accent);
+    }
+
+    .rule {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 16px;
+      padding: 18px 18px 14px;
+      margin-bottom: 14px;
+    }
+
+    .rule:last-child {
+      margin-bottom: 0;
+    }
+
+    .rule h3 {
+      margin: 0 0 10px;
+      font-size: 1.08rem;
+      color: var(--accent-2);
+    }
+
+    .rule p {
+      margin: 0 0 10px;
+      color: var(--text);
+    }
+
+    .rule ul {
+      margin: 8px 0 0 20px;
+      padding: 0;
+      color: var(--muted);
+    }
+
+    .rule li {
+      margin-bottom: 6px;
+    }
+
+    footer {
+      text-align: center;
+      color: var(--muted);
+      padding: 20px 0 40px;
+      font-size: 0.95rem;
+    }
+
+    .badge {
+      display: inline-block;
+      background: rgba(245,158,11,0.12);
+      color: #fbbf24;
+      border: 1px solid rgba(245,158,11,0.25);
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 0.9rem;
+      margin-bottom: 14px;
+    }
+
+    @media (max-width: 700px) {
+      .section-card {
+        padding: 18px;
+      }
+
+      .rule {
+        padding: 15px 14px 12px;
+      }
+
+      .top-nav-inner {
+        justify-content: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="container">
+    <div class="badge">Minecraft server • Oficiálny zákonník</div>
+    <h1 class="title">📜 Pravidlá servera</h1>
+    <p class="subtitle">
+      Základné pravidlá fungovania servera, štátov, území, diplomacie a PvP.
+    </p>
+  </header>
+
+  <nav class="top-nav">
+    <div class="top-nav-inner">
+      <a href="#a">a) Základné pravidlá</a>
+      <a href="#b">b) Štáty, aliancie a diplomacia</a>
+      <a href="#c">c) Svet, stavby a územia</a>
+      <a href="#d">d) PvP & boj</a>
+    </div>
+  </nav>
+
+  <main class="container">
+    <div class="rules-wrapper">
+
+      <section class="section-card" id="a">
+        <h2>a) Základné pravidlá servera</h2>
+
+        <div class="rule">
+          <h3>1. Zákaz používania cheatov</h3>
+          <p>
+            Používanie akýchkoľvek cheatov alebo nefér výhod je prísne zakázané.
+          </p>
+          <p>
+            To zahŕňa najmä X-Ray, ale aj iné módy, resource packy alebo nástroje,
+            ktoré poskytujú neoprávnenú výhodu
+            (napr. zobrazovanie rúd, entít alebo skrytých objektov).
+          </p>
+        </div>
+
+        <div class="rule">
+          <h3>2. Nastavenia renderovania</h3>
+          <p>
+            Maximálna povolená hodnota pre render distance a simulation distance je
+            <strong>15 chunkov</strong>.
+          </p>
+          <p>
+            Vyššie hodnoty nie sú povolené z dôvodu výkonu servera.
+          </p>
+        </div>
+
+        <div class="rule">
+          <h3>3. Zákaz zneužívania bugov a herných mechaník</h3>
+          <p>
+            Je zakázané vedome zneužívať chyby hry, servera alebo módov na získanie výhody.
+            Každý objavený bug je hráč povinný nahlásiť.
+          </p>
+          <p>
+            Zároveň je zakázané zneužívať herné mechaniky alebo módy spôsobom,
+            ktorý narúša férovosť hry, najmä:
+          </p>
+          <ul>
+            <li>používanie gravitronu na lietanie na VS (Valkyrien Skies) objektoch,</li>
+            <li>používanie VS lodí na súši, ak sú určené výhradne na pohyb vo vode.</li>
+          </ul>
+        </div>
+
+        <div class="rule">
+          <h3>4. Zákaz obchádzania pravidiel</h3>
+          <p>
+            Je zakázané obchádzať pravidlá servera akýmkoľvek spôsobom,
+            aj keď to nie je výslovne uvedené.
+          </p>
+        </div>
+      </section>
+
+      <section class="section-card" id="b">
+        <h2>b) Štáty, aliancie a diplomacia</h2>
+
+        <div class="rule">
+          <h3>1. Platnosť zákonov štátu</h3>
+          <p>
+            Zákony jednotlivých štátov začínajú pre hráča platiť okamžite po vstupe
+            na ich územie a prestávajú platiť okamžite po jeho opustení.
+          </p>
+        </div>
+
+        <div class="rule">
+          <h3>2. Maximálny počet hráčov v štáte</h3>
+          <p>Každý štát môže mať maximálne <strong>4 aktívnych hráčov</strong>.</p>
+        </div>
+
+        <div class="rule">
+          <h3>3. Maximálna veľkosť koalície</h3>
+          <p>Jedna koalícia môže pozostávať maximálne z <strong>3 štátov</strong>.</p>
+        </div>
+
+        <div class="rule">
+          <h3>4. Vystúpenie štátu z koalície</h3>
+          <p>
+            Štát môže vystúpiť z koalície najskôr <strong>24 hodín</strong> po oficiálnom oznámení v:
+          </p>
+          <ul>
+            <li>oficiálnej komunikačnej skupine servera, a zároveň</li>
+            <li>komunikačnej skupine danej koalície.</li>
+          </ul>
+        </div>
+
+        <div class="rule">
+          <h3>5. Právo prechodu v rámci koalície</h3>
+          <p>
+            Štáty, ktoré sú súčasťou jednej koalície, majú medzi sebou automaticky
+            udelený „right of way“ (právo prechodu).
+          </p>
+        </div>
+
+        <div class="rule">
+          <h3>6. Právo štátu na vlastné zákony</h3>
+          <p>
+            Každý štát si môže vytvárať a uplatňovať vlastné zákony na svojom území,
+            pokiaľ nie sú v rozpore so základnými pravidlami servera.
+          </p>
+        </div>
+
+        <div class="rule">
+          <h3>7. Hlavné mesto štátu</h3>
+          <p>Každý štát musí mať určené svoje hlavné mesto, ktoré musí byť:</p>
+          <ul>
+            <li>jasne definované, a</li>
+            <li>viditeľne označené na serverovej mape.</li>
+          </ul>
+        </div>
+
+        <div class="rule">
+          <h3>8. Zodpovednosť štátu za svojich hráčov</h3>
+          <p>
+            Štát nesie zodpovednosť za správanie svojich členov na svojom území.
+          </p>
+        </div>
+
+        <div class="rule">
+          <h3>9. Štátne zriadenie a vládca</h3>
+          <p>Každý štát je povinný určiť:</p>
+          <ul>
+            <li>svojho vládcu (alebo vedenie),</li>
+            <li>svoje štátne zriadenie (napr. monarchia, demokracia a pod.).</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="section-card" id="c">
+        <h2>c) Svet, stavby a územia</h2>
+
+        <div class="rule">
+          <h3>1. Spawn ako neutrálne územie</h3>
+          <p>
+            Oblasť spawnu nepatrí žiadnemu štátu a je považovaná za neutrálne územie.
+          </p>
+          <p>Na spawne je zakázané:</p>
+          <ul>
+            <li>útočiť alebo zabíjať hráčov,</li>
+            <li>ničiť alebo upravovať prostredie bez povolenia.</li>
+          </ul>
+          <p>Všetky zmeny na spawne musia byť vopred dohodnuté.</p>
+        </div>
+
+        <div class="rule">
+          <h3>2. Vstup na cudzie územie</h3>
+          <p>
+            Cestovanie do cudzieho štátu je zakázané, pokiaľ hráč nemá udelený:
+          </p>
+          <ul>
+            <li>dlhodobý „right of way“ (právo prechodu), alebo</li>
+            <li>jednorazové povolenie na vstup od daného štátu.</li>
+          </ul>
+          <p>Porušenie sa považuje za neoprávnené narušenie územia.</p>
+        </div>
+
+        <div class="rule">
+          <h3>3. Lootovanie štruktúr na cudzom území</h3>
+          <p>
+            Je zakázané lootovať (vykrádať) akékoľvek štruktúry na území cudzieho štátu
+            bez výslovného povolenia.
+          </p>
+          <p>
+            To zahŕňa napríklad dungeon, dediny, chrámy, bastiony, strongholdy
+            a iné generované štruktúry.
+          </p>
+        </div>
+
+        <div class="rule">
+          <h3>4. Ochrana villagerov</h3>
+          <p>
+            Je prísne zakázané zabíjať villagerov na území cudzieho štátu bez povolenia.
+          </p>
+        </div>
+
+        <div class="rule">
+          <h3>5. Ochrana bossov</h3>
+          <p>
+            Je zakázané zabíjať akýchkoľvek bossov (napr. Wither, Ender Dragon a pod.)
+            na území cudzieho štátu bez povolenia.
+          </p>
+        </div>
+
+        <div class="rule">
+          <h3>6. Zákaz krádeže z truhlíc</h3>
+          <p>
+            Je zakázané brať akékoľvek predmety z truhlíc, sudov, shulker boxov
+            a iných úložísk na území cudzieho štátu bez výslovného povolenia.
+          </p>
+        </div>
+
+        <div class="rule">
+          <h3>7. Zákaz ničenia na cudzom území</h3>
+          <p>
+            Je zakázané ničiť, upravovať alebo inak zasahovať do stavieb a prostredia
+            na území cudzieho štátu bez povolenia.
+          </p>
+          <p>
+            Toto pravidlo má výnimky v prípade vojnového stavu, ktoré sú definované
+            v zákonníku „Pravidlá vojen“.
+          </p>
+        </div>
+
+        <div class="rule">
+          <h3>8. Zákaz stavania na cudzom území</h3>
+          <p>
+            Hráč nesmie stavať, upravovať terén ani umiestňovať bloky
+            na území cudzieho štátu bez výslovného povolenia.
+          </p>
+        </div>
+
+        <div class="rule">
+          <h3>9. Zákaz griefingu prírody na cudzom území</h3>
+          <p>
+            Je zakázané úmyselne ničiť prírodu
+            (napr. vyrúbanie lesa, zaplavovanie, láva, TNT)
+            na cudzom území bez povolenia.
+          </p>
+        </div>
+
+        <div class="rule">
+          <h3>10. Zákaz zakladania skrytých základní</h3>
+          <p>
+            Je zakázané vytvárať skryté základne alebo úkryty na území cudzieho štátu bez povolenia.
+          </p>
+        </div>
+
+        <div class="rule">
+          <h3>11. Zákaz blokovania prístupu</h3>
+          <p>
+            Je zakázané úmyselne blokovať prístup k dôležitým miestam
+            (napr. portály, cesty, farmy) na cudzom území.
+          </p>
+        </div>
+      </section>
+
+      <section class="section-card" id="d">
+        <h2>d) PvP & boj</h2>
+
+        <div class="rule">
+          <h3>1. Zákaz zabíjania na cudzom území</h3>
+          <p>
+            Je zakázané zabíjať hráčov na území cudzieho štátu bez výslovného povolenia
+            alebo vyhláseného vojnového stavu.
+          </p>
+        </div>
+
+        <div class="rule">
+          <h3>2. Ochrana počas medzinárodných stretnutí</h3>
+          <p>
+            Počas oficiálnych medzinárodných stretnutí
+            (napr. rokovania, dohody, diplomatické stretnutia)
+            je prísne zakázané útočiť alebo zabíjať zúčastnených hráčov.
+          </p>
+          <p>
+            Tieto stretnutia musia byť vopred dohodnuté a oznámené.
+          </p>
+        </div>
+
+        <div class="rule">
+          <h3>3. Zákaz provokovania PvP</h3>
+          <p>
+            Je zakázané úmyselne provokovať hráčov s cieľom vyvolať konflikt
+            mimo povolených podmienok.
+          </p>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <footer class="container">
+    © Pravidlá servera
+  </footer>
+</body>
+</html>
