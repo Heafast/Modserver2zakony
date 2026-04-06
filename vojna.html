@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="sk">
 <head>
@@ -8,14 +7,17 @@
   <style>
     :root {
       --bg: #0f172a;
+      --bg-2: #111827;
       --card: #111827;
       --card-2: #1e293b;
       --text: #f8fafc;
       --muted: #cbd5e1;
       --accent: #ef4444;
       --accent-2: #f59e0b;
+      --active: #22c55e;
       --border: rgba(255,255,255,0.08);
       --shadow: 0 10px 30px rgba(0,0,0,0.35);
+      --radius: 20px;
     }
 
     * {
@@ -43,8 +45,19 @@
     }
 
     header {
-      padding: 48px 0 28px;
+      padding: 42px 0 22px;
       text-align: center;
+    }
+
+    .badge {
+      display: inline-block;
+      background: rgba(239,68,68,0.12);
+      color: #fca5a5;
+      border: 1px solid rgba(239,68,68,0.25);
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 0.9rem;
+      margin-bottom: 14px;
     }
 
     .title {
@@ -61,43 +74,76 @@
       max-width: 760px;
     }
 
-    .top-nav {
+    .page-switcher-wrap {
       position: sticky;
       top: 0;
-      z-index: 20;
+      z-index: 30;
       backdrop-filter: blur(10px);
-      background: rgba(15, 23, 42, 0.82);
+      background: rgba(15, 23, 42, 0.86);
       border-bottom: 1px solid var(--border);
     }
 
-    .top-nav-inner {
+    .page-switcher {
       width: min(1100px, 92%);
       margin: 0 auto;
       display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      padding: 12px 0;
+      gap: 12px;
       justify-content: center;
+      padding: 14px 0 10px;
+      flex-wrap: wrap;
     }
 
-    .top-nav a {
+    .page-tab {
       text-decoration: none;
       color: var(--text);
       background: rgba(255,255,255,0.05);
       border: 1px solid var(--border);
-      padding: 10px 14px;
+      padding: 14px 20px;
+      border-radius: 16px;
+      font-weight: 700;
+      font-size: 1rem;
+      transition: 0.2s ease;
+      box-shadow: var(--shadow);
+    }
+
+    .page-tab:hover {
+      transform: translateY(-2px);
+      background: rgba(255,255,255,0.09);
+    }
+
+    .page-tab.active {
+      background: rgba(34,197,94,0.18);
+      border-color: rgba(34,197,94,0.45);
+      color: #bbf7d0;
+    }
+
+    .section-nav {
+      width: min(1100px, 92%);
+      margin: 0 auto;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: center;
+      padding: 0 0 14px;
+    }
+
+    .section-nav a {
+      text-decoration: none;
+      color: var(--text);
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      padding: 9px 13px;
       border-radius: 999px;
-      font-size: 0.95rem;
+      font-size: 0.94rem;
       transition: 0.2s ease;
     }
 
-    .top-nav a:hover {
+    .section-nav a:hover {
       background: rgba(255,255,255,0.1);
-      transform: translateY(-1px);
     }
 
     main {
-      padding: 30px 0 70px;
+      padding: 28px 0 70px;
     }
 
     .rules-wrapper {
@@ -108,7 +154,7 @@
     .section-card {
       background: linear-gradient(180deg, var(--card) 0%, var(--card-2) 100%);
       border: 1px solid var(--border);
-      border-radius: 20px;
+      border-radius: var(--radius);
       padding: 26px;
       box-shadow: var(--shadow);
     }
@@ -139,17 +185,6 @@
 
     .rule p {
       margin: 0 0 10px;
-      color: var(--text);
-    }
-
-    .rule ul {
-      margin: 8px 0 0 20px;
-      padding: 0;
-      color: var(--muted);
-    }
-
-    .rule li {
-      margin-bottom: 6px;
     }
 
     footer {
@@ -159,28 +194,39 @@
       font-size: 0.95rem;
     }
 
-    .badge {
-      display: inline-block;
-      background: rgba(239,68,68,0.12);
-      color: #fca5a5;
-      border: 1px solid rgba(239,68,68,0.25);
-      padding: 6px 10px;
-      border-radius: 999px;
-      font-size: 0.9rem;
-      margin-bottom: 14px;
-    }
-
     @media (max-width: 700px) {
+      header {
+        padding: 28px 0 16px;
+      }
+
+      .page-switcher {
+        justify-content: stretch;
+      }
+
+      .page-tab {
+        flex: 1 1 100%;
+        text-align: center;
+        padding: 13px 14px;
+      }
+
+      .section-nav {
+        justify-content: flex-start;
+        overflow-x: auto;
+        flex-wrap: nowrap;
+        padding-bottom: 12px;
+      }
+
+      .section-nav a {
+        white-space: nowrap;
+        flex: 0 0 auto;
+      }
+
       .section-card {
         padding: 18px;
       }
 
       .rule {
         padding: 15px 14px 12px;
-      }
-
-      .top-nav-inner {
-        justify-content: flex-start;
       }
     }
   </style>
@@ -194,10 +240,13 @@
     </p>
   </header>
 
-  <nav class="top-nav">
-    <div class="top-nav-inner">
-      <a href="index.html">📜 Pravidlá servera</a>
-      <a href="vojna.html">⚔️ Pravidlá vojny</a>
+  <div class="page-switcher-wrap">
+    <div class="page-switcher">
+      <a class="page-tab" href="index.html">📜 Pravidlá servera</a>
+      <a class="page-tab active" href="vojna.html">⚔️ Pravidlá vojny</a>
+    </div>
+
+    <nav class="section-nav">
       <a href="#a">a) Začiatok vojny</a>
       <a href="#b">b) Priebeh vojny</a>
       <a href="#c">c) Bombardovanie</a>
@@ -205,8 +254,8 @@
       <a href="#e">e) Zmeny po konci vojny</a>
       <a href="#f">f) Povstania</a>
       <a href="#g">g) Občianske vojny</a>
-    </div>
-  </nav>
+    </nav>
+  </div>
 
   <main class="container">
     <div class="rules-wrapper">
@@ -216,18 +265,12 @@
 
         <div class="rule">
           <h3>1. Vyhlásenie vojny</h3>
-          <p>
-            Štát môže zaútočiť na iný štát až po oficiálnom vyhlásení vojny.
-            Útok je povolený najskôr po 24 hodinách od vyhlásenia.
-          </p>
+          <p>Štát môže zaútočiť na iný štát až po oficiálnom vyhlásení vojny. Útok je povolený najskôr po 24 hodinách od vyhlásenia.</p>
         </div>
 
         <div class="rule">
           <h3>2. Napadnutie koalície</h3>
-          <p>
-            Ak je napadnutý štát členom koalície, za napadnuté sa považujú
-            všetky štáty danej koalície.
-          </p>
+          <p>Ak je napadnutý štát členom koalície, za napadnuté sa považujú všetky štáty danej koalície.</p>
         </div>
       </section>
 
@@ -236,135 +279,92 @@
 
         <div class="rule">
           <h3>1. Útok na región</h3>
-          <p>
-            Bojuje sa o regióny. Na región možno zaútočiť len vtedy,
-            ak je aktívny aspoň 1 hráč zo štátu, ktorému región patrí.
-          </p>
+          <p>Bojuje sa o regióny. Na región možno zaútočiť len vtedy, ak je aktívny aspoň 1 hráč zo štátu, ktorému región patrí.</p>
         </div>
 
         <div class="rule">
           <h3>2. Ohlásenie útoku</h3>
-          <p>
-            Útok musí byť ohlásený aspoň 15 minút vopred,
-            a to aj v Minecraft chate, aj v oficiálnej WhatsApp skupine servera.
-          </p>
+          <p>Útok musí byť ohlásený aspoň 15 minút vopred, a to aj v Minecraft chate, aj v oficiálnej WhatsApp skupine servera.</p>
         </div>
 
         <div class="rule">
           <h3>3. Vstup útočníkov do regiónu</h3>
-          <p>
-            Na región môžu útočníci vstúpiť až po uplynutí 15 minút od ohlásenia útoku.
-          </p>
+          <p>Na región môžu útočníci vstúpiť až po uplynutí 15 minút od ohlásenia útoku.</p>
         </div>
 
         <div class="rule">
           <h3>4. Povinnosť obrany</h3>
-          <p>
-            Po ohlásení útoku musí obranca prísť do daného regiónu do 20 minút,
-            inak sa to považuje za jeho prehru.
-          </p>
+          <p>Po ohlásení útoku musí obranca prísť do daného regiónu do 20 minút, inak sa to považuje za jeho prehru.</p>
         </div>
 
         <div class="rule">
           <h3>5. Počet útočníkov</h3>
-          <p>
-            Útočníkov nesmie byť viac ako obrancov.
-          </p>
+          <p>Útočníkov nesmie byť viac ako obrancov.</p>
         </div>
 
         <div class="rule">
           <h3>6. Použitie strojov</h3>
-          <p>
-            Na útok aj obranu možno použiť akékoľvek stroje.
-          </p>
+          <p>Na útok aj obranu možno použiť akékoľvek stroje.</p>
         </div>
 
         <div class="rule">
           <h3>7. Smer útoku</h3>
-          <p>
-            Na región možno zaútočiť len zo susedného regiónu útočiaceho štátu
-            alebo štátu z koalície útočiaceho štátu.
-          </p>
+          <p>Na región možno zaútočiť len zo susedného regiónu útočiaceho štátu alebo štátu z koalície útočiaceho štátu.</p>
         </div>
 
         <div class="rule">
           <h3>8. Získanie regiónu</h3>
-          <p>
-            Región získa útočiaci štát, ak vyhrá bitku.
-          </p>
+          <p>Región získa útočiaci štát, ak vyhrá bitku.</p>
         </div>
 
         <div class="rule">
           <h3>9. Víťaz bitky</h3>
-          <p>
-            Bitku vyhráva strana, ktorá zabije všetkých nepriateľov na danom území.
-          </p>
+          <p>Bitku vyhráva strana, ktorá zabije všetkých nepriateľov na danom území.</p>
         </div>
 
         <div class="rule">
           <h3>10. Útek alebo vzdanie sa obrancov</h3>
-          <p>
-            Ak obrancovia utečú alebo sa vzdajú, považuje sa to za ich prehru.
-          </p>
+          <p>Ak obrancovia utečú alebo sa vzdajú, považuje sa to za ich prehru.</p>
         </div>
 
         <div class="rule">
           <h3>11. Útek útočníkov</h3>
-          <p>
-            Ak útočníci utečú, považuje sa to za výhru obrancov.
-          </p>
+          <p>Ak útočníci utečú, považuje sa to za výhru obrancov.</p>
         </div>
 
         <div class="rule">
           <h3>12. Denný limit útokov</h3>
-          <p>
-            Štát môže za 1 deň zaútočiť najviac na 2 regióny.
-          </p>
+          <p>Štát môže za 1 deň zaútočiť najviac na 2 regióny.</p>
         </div>
 
         <div class="rule">
           <h3>13. Míny a pasce</h3>
-          <p>
-            Na obranu možno použiť akékoľvek míny a pasce,
-            pripravené vopred aj tesne pred útokom.
-          </p>
+          <p>Na obranu možno použiť akékoľvek míny a pasce, pripravené vopred aj tesne pred útokom.</p>
         </div>
 
         <div class="rule">
           <h3>14. Povolené ničenie</h3>
-          <p>
-            Ničenie je povolené len priemyselných budov,
-            teda tovární, fariem a ropných vrtov.
-          </p>
+          <p>Ničenie je povolené len priemyselných budov, teda tovární, fariem a ropných vrtov.</p>
         </div>
 
         <div class="rule">
           <h3>15. Zákaz ničenia pred dobytím</h3>
-          <p>
-            Je zakázané ničiť, pokiaľ región ešte nebol dobytý.
-          </p>
+          <p>Je zakázané ničiť, pokiaľ región ešte nebol dobytý.</p>
         </div>
 
         <div class="rule">
           <h3>16. Ochrana dedinčanov</h3>
-          <p>
-            Je zakázané zabíjať dedinčanov.
-          </p>
+          <p>Je zakázané zabíjať dedinčanov.</p>
         </div>
 
         <div class="rule">
           <h3>17. Výnimka pre bombardovanie</h3>
-          <p>
-            Tieto pravidlá sa menia pri útokoch typu bombardovanie.
-          </p>
+          <p>Tieto pravidlá sa menia pri útokoch typu bombardovanie.</p>
         </div>
 
         <div class="rule">
           <h3>18. Použitie delostrelectva</h3>
-          <p>
-            Delostrelectvo možno použiť len zo susedného regiónu útočiaceho štátu
-            alebo štátu z koalície útočiaceho štátu.
-          </p>
+          <p>Delostrelectvo možno použiť len zo susedného regiónu útočiaceho štátu alebo štátu z koalície útočiaceho štátu.</p>
         </div>
       </section>
 
@@ -373,71 +373,47 @@
 
         <div class="rule">
           <h3>1. Dosah bombardovania</h3>
-          <p>
-            Bombardovať možno len ciele, ktoré sa nachádzajú najviac 1000 blokov
-            od hranice bombardovaného štátu, pričom musí ísť o hranicu susediacu
-            so štátom útočníka alebo so štátom z koalície útočiaceho štátu.
-          </p>
+          <p>Bombardovať možno len ciele, ktoré sa nachádzajú najviac 1000 blokov od hranice bombardovaného štátu, pričom musí ísť o hranicu susediacu so štátom útočníka alebo so štátom z koalície útočiaceho štátu.</p>
         </div>
 
         <div class="rule">
           <h3>2. Ohlásenie bombardovania</h3>
-          <p>
-            Bombardovanie musí byť ohlásené aspoň 15 minút pred vstupom
-            na územie bombardovaného štátu.
-          </p>
+          <p>Bombardovanie musí byť ohlásené aspoň 15 minút pred vstupom na územie bombardovaného štátu.</p>
         </div>
 
         <div class="rule">
           <h3>3. Povolené ciele</h3>
-          <p>
-            Bombardovať možno len ciele typu továreň, hráč,
-            priemyselná budova alebo ropný vrt.
-          </p>
+          <p>Bombardovať možno len ciele typu továreň, hráč, priemyselná budova alebo ropný vrt.</p>
         </div>
 
         <div class="rule">
           <h3>4. Počet bombardérov</h3>
-          <p>
-            Počet použitých bombardérov nesmie byť vyšší ako počet útočiacich hráčov
-            zúčastnených na bombardovaní.
-          </p>
+          <p>Počet použitých bombardérov nesmie byť vyšší ako počet útočiacich hráčov zúčastnených na bombardovaní.</p>
         </div>
 
         <div class="rule">
           <h3>5. Denný limit bombardovania</h3>
-          <p>
-            Za 1 deň môže prebehnúť najviac 1 bombardovanie.
-          </p>
+          <p>Za 1 deň môže prebehnúť najviac 1 bombardovanie.</p>
         </div>
 
         <div class="rule">
           <h3>6. Aktivita obrancu</h3>
-          <p>
-            Bombardovanie môže prebehnúť len vtedy,
-            ak je aktívny aspoň 1 hráč z bombardovaného štátu.
-          </p>
+          <p>Bombardovanie môže prebehnúť len vtedy, ak je aktívny aspoň 1 hráč z bombardovaného štátu.</p>
         </div>
 
         <div class="rule">
           <h3>7. Podpora útoku</h3>
-          <p>
-            Bombardovanie možno použiť aj ako podporu pri útoku na región.
-          </p>
+          <p>Bombardovanie možno použiť aj ako podporu pri útoku na región.</p>
         </div>
 
         <div class="rule">
           <h3>8. Zákaz TNT duplikátorov</h3>
-          <p>
-            Je zakázané používať TNT duplikátory.
-          </p>
+          <p>Je zakázané používať TNT duplikátory.</p>
         </div>
 
         <div class="rule">
           <h3>9. Obmedzenie výsledku bombardovania</h3>
-          <p>
-            Bombardovaním nemožno získať región ani loot.
-          </p>
+          <p>Bombardovaním nemožno získať región ani loot.</p>
         </div>
       </section>
 
@@ -446,16 +422,12 @@
 
         <div class="rule">
           <h3>1. Ukončenie zmluvou</h3>
-          <p>
-            Vojna môže skončiť podpísaním zmluvy o ukončení vojny.
-          </p>
+          <p>Vojna môže skončiť podpísaním zmluvy o ukončení vojny.</p>
         </div>
 
         <div class="rule">
           <h3>2. Zánik všetkých území</h3>
-          <p>
-            Vojna môže skončiť aj vtedy, ak štát stratí všetky svoje územia.
-          </p>
+          <p>Vojna môže skončiť aj vtedy, ak štát stratí všetky svoje územia.</p>
         </div>
       </section>
 
@@ -464,41 +436,27 @@
 
         <div class="rule">
           <h3>1. Zachovanie výsledkov vojny</h3>
-          <p>
-            Štát si ponecháva všetky získané územia
-            a stráca všetky stratené územia.
-          </p>
+          <p>Štát si ponecháva všetky získané územia a stráca všetky stratené územia.</p>
         </div>
 
         <div class="rule">
           <h3>2. Osud štátu bez územia</h3>
-          <p>
-            Ak štát stratí všetky územia, jeho hráči sa môžu pripojiť
-            k inému štátu alebo sa stať rebelmi.
-          </p>
+          <p>Ak štát stratí všetky územia, jeho hráči sa môžu pripojiť k inému štátu alebo sa stať rebelmi.</p>
         </div>
 
         <div class="rule">
           <h3>3. Rozdelenie porazeného územia</h3>
-          <p>
-            Územie porazeného štátu si môže rozdeliť viac štátov,
-            ktoré proti nemu bojovali.
-          </p>
+          <p>Územie porazeného štátu si môže rozdeliť viac štátov, ktoré proti nemu bojovali.</p>
         </div>
 
         <div class="rule">
           <h3>4. Nové hranice</h3>
-          <p>
-            Po vojne sa možno dohodnúť na nových hraniciach porazeného štátu.
-          </p>
+          <p>Po vojne sa možno dohodnúť na nových hraniciach porazeného štátu.</p>
         </div>
 
         <div class="rule">
           <h3>5. Nový vládca</h3>
-          <p>
-            Po vojne môže byť porazenému štátu určený nový vládca,
-            a to aj zo štátu, ktorý vojnu vyhral.
-          </p>
+          <p>Po vojne môže byť porazenému štátu určený nový vládca, a to aj zo štátu, ktorý vojnu vyhral.</p>
         </div>
       </section>
 
@@ -507,33 +465,22 @@
 
         <div class="rule">
           <h3>1. Útok rebelov</h3>
-          <p>
-            Rebeli môžu útočiť na akékoľvek stratené územie štátu,
-            ku ktorému patrili, ak tento štát už neexistuje.
-          </p>
+          <p>Rebeli môžu útočiť na akékoľvek stratené územie štátu, ku ktorému patrili, ak tento štát už neexistuje.</p>
         </div>
 
         <div class="rule">
           <h3>2. Pravidlá útoku rebelov</h3>
-          <p>
-            Útok rebelov sa riadi rovnakými pravidlami ako útok na región,
-            okrem výnimky uvedenej v bode 1.
-          </p>
+          <p>Útok rebelov sa riadi rovnakými pravidlami ako útok na región, okrem výnimky uvedenej v bode 1.</p>
         </div>
 
         <div class="rule">
           <h3>3. Vznik nového štátu</h3>
-          <p>
-            Ak rebeli vyhrajú, na dobytom území vzniká nový štát.
-          </p>
+          <p>Ak rebeli vyhrajú, na dobytom území vzniká nový štát.</p>
         </div>
 
         <div class="rule">
           <h3>4. Základňa rebelov</h3>
-          <p>
-            Základňa rebelov musí byť tajná a musí sa nachádzať
-            na bývalom území štátu, ku ktorému patrili.
-          </p>
+          <p>Základňa rebelov musí byť tajná a musí sa nachádzať na bývalom území štátu, ku ktorému patrili.</p>
         </div>
       </section>
 
@@ -542,47 +489,32 @@
 
         <div class="rule">
           <h3>1. Jasný cieľ</h3>
-          <p>
-            Občianska vojna musí mať jasný cieľ.
-          </p>
+          <p>Občianska vojna musí mať jasný cieľ.</p>
         </div>
 
         <div class="rule">
           <h3>2. Koniec občianskej vojny</h3>
-          <p>
-            Občianska vojna končí vtedy, keď strana požadujúca zmenu vyhrá,
-            keď je požadovaná zmena uskutočnená,
-            alebo keď táto strana stratí všetky svoje regióny.
-          </p>
+          <p>Občianska vojna končí vtedy, keď strana požadujúca zmenu vyhrá, keď je požadovaná zmena uskutočnená, alebo keď táto strana stratí všetky svoje regióny.</p>
         </div>
 
         <div class="rule">
           <h3>3. Začiatočné územie</h3>
-          <p>
-            Strana požadujúca zmenu začína s 1 územím,
-            ktoré nie je regiónom s hlavným mestom.
-          </p>
+          <p>Strana požadujúca zmenu začína s 1 územím, ktoré nie je regiónom s hlavným mestom.</p>
         </div>
 
         <div class="rule">
           <h3>4. Rozdelenie členov štátu</h3>
-          <p>
-            Každý člen štátu sa musí pripojiť na jednu zo strán.
-          </p>
+          <p>Každý člen štátu sa musí pripojiť na jednu zo strán.</p>
         </div>
 
         <div class="rule">
           <h3>5. Zapojenie iných štátov</h3>
-          <p>
-            Na ktorúkoľvek stranu sa môžu pripojiť aj iné štáty.
-          </p>
+          <p>Na ktorúkoľvek stranu sa môžu pripojiť aj iné štáty.</p>
         </div>
 
         <div class="rule">
           <h3>6. Pravidlá boja</h3>
-          <p>
-            Boj prebieha podľa pravidiel dobývania regiónov.
-          </p>
+          <p>Boj prebieha podľa pravidiel dobývania regiónov.</p>
         </div>
       </section>
 
